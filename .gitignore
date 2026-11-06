@@ -1,44 +1,78 @@
+# ---------- Build (Maven) ----------
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Java compilado e pacotes
 *.class
-
-
-/node_modules
-
-# SSH Keys
-
-*.pem
-*.ppk
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
+*.nar
 *.ear
-
-# Merge Files
-*.bak
-
-#Gradle temporary files
-target/
-
-#Eclipse files
-**/.project
-**/.classpath
-**/.settings/
-/bin/
-blog/bin/
-**/.tern-project
-**/.factorypath
-
-#IntelliJ files
-**/*.iml
-**/.idea
-**/.gradle
-
-#Other Files
-*.ini
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+*.zip
+*.tar.gz
+*.rar
 hs_err_pid*
-/.metadata/
+replay_pid*
+
+# ---------- IntelliJ IDEA ----------
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# ---------- Eclipse / STS / NetBeans / VS Code ----------
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+.metadata/
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+.vscode/
+
+# ---------- Segredos (NUNCA commitar) ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.ppk
+*.p12
+*.jks
+*.keystore
+application-local.*
+application-secret*.*
+application-dev.*
+application-prod.*
+secrets/
+credentials*.json
+
+# ---------- Logs e temporários ----------
+*.log
+logs/
+*.bak
+*.tmp
+*.swp
+*~
+
+# ---------- Docker (local) ----------
+docker-compose.override.yml
+
+# ---------- Sistema operacional ----------
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ---------- Spring ----------
+HELP.md
