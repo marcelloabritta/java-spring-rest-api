@@ -1,8 +1,8 @@
-package com.marcelloabritta.restapi.unitetests.mapper;
+package com.marcelloabritta.restapi.unittests.mapper;
 
 import com.marcelloabritta.restapi.data.dto.v1.PersonDTO;
 import com.marcelloabritta.restapi.model.Person;
-import com.marcelloabritta.restapi.unitetests.mapper.mocks.MockPerson;
+import com.marcelloabritta.restapi.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

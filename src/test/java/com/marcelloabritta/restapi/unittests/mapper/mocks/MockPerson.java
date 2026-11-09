@@ -1,4 +1,4 @@
-package com.marcelloabritta.restapi.unitetests.mapper.mocks;
+package com.marcelloabritta.restapi.unittests.mapper.mocks;
 
 import com.marcelloabritta.restapi.data.dto.v1.PersonDTO;
 import com.marcelloabritta.restapi.model.Person;
