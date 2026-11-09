@@ -9,7 +9,7 @@ import static com.marcelloabritta.restapi.mapper.ObjectMapper.parseObject;
 
 import com.marcelloabritta.restapi.mapper.custom.PersonMapper;
 import com.marcelloabritta.restapi.model.Person;
-import com.marcelloabritta.restapi.repositoy.PersonRepository;
+import com.marcelloabritta.restapi.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
