@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.marcelloabritta.restapi.serializer.GenderSerializer;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,7 +22,7 @@ public class PersonDTO implements Serializable {
     private String lastName;
 
     private String address;
-    
+
     private String gender;
 
     public PersonDTO() {
