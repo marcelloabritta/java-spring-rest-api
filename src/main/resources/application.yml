@@ -1,1 +1,16 @@
-  spring.application.name=restapi
+spring:
+  application:
+    name: restapi
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/java_spring_rest_api?useTimezone=true&serverTimezone=UTC
+    username: root
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false
+  logging:
+    level:
+      com.marcelloabritta: DEBUG
