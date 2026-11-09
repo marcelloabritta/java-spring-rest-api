@@ -11,6 +11,7 @@ spring:
       ddl-auto: none
     show-sql: false
     open-in-view: false
-  logging:
-    level:
-      com.marcelloabritta: DEBUG
+logging:
+  level:
+    com.marcelloabritta: DEBUG
+
