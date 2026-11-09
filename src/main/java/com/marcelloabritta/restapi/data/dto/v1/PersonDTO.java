@@ -23,8 +23,7 @@ public class PersonDTO implements Serializable {
     private String lastName;
 
     private String address;
-
-    @JsonSerialize(using = GenderSerializer.class)
+    
     private String gender;
 
     public PersonDTO() {
