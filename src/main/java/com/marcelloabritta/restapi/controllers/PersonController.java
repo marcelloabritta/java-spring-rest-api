@@ -1,7 +1,9 @@
 package com.marcelloabritta.restapi.controllers;
 
+import com.marcelloabritta.restapi.controllers.docs.PersonControllerDocs;
 import com.marcelloabritta.restapi.data.dto.v1.PersonDTO;
 import com.marcelloabritta.restapi.services.PersonServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person/v1")
-public class PersonController {
+@RequestMapping("api/person/v1")
+@Tag(name = "People", description = "Endpoints for Managing people")
+public class PersonController implements PersonControllerDocs {
 
     @Autowired
     private PersonServices service;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @Override
     public List<PersonDTO> findAll() {
 
         return service.findAll();
@@ -32,6 +36,7 @@ public class PersonController {
     @GetMapping(value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
+    @Override
     public PersonDTO findById(@PathVariable("id") Long id) {
 
         return service.findById(id);
@@ -41,6 +46,7 @@ public class PersonController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
+    @Override
     public PersonDTO create(@RequestBody PersonDTO person) {
 
         return service.create(person);
@@ -51,12 +57,14 @@ public class PersonController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
+    @Override
     public PersonDTO update(@RequestBody PersonDTO person) {
 
         return service.update(person);
     }
 
     @DeleteMapping(value = "/{id}")
+    @Override
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
