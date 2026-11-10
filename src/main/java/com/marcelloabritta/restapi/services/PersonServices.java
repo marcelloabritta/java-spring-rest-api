@@ -2,6 +2,7 @@ package com.marcelloabritta.restapi.services;
 
 import com.marcelloabritta.restapi.controllers.PersonController;
 import com.marcelloabritta.restapi.data.dto.v1.PersonDTO;
+import com.marcelloabritta.restapi.exception.RequiredObjectIsNullException;
 import com.marcelloabritta.restapi.exception.ResourceNotFoundException;
 
 import static com.marcelloabritta.restapi.mapper.ObjectMapper.parseListObjects;
@@ -19,18 +20,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 
 @Service
 public class PersonServices {
-    private final AtomicLong counter = new AtomicLong();
     private Logger logger = LoggerFactory.getLogger(PersonServices.class.getName());
 
     @Autowired
     PersonRepository repository;
 
-    @Autowired
 
     public List<PersonDTO> findAll() {
         logger.info("Finding all People!");
@@ -52,6 +50,8 @@ public class PersonServices {
 
 
     public PersonDTO create(PersonDTO person) {
+        if (person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Creating one Person!");
 
         var entity = parseObject(person, Person.class);
@@ -63,6 +63,8 @@ public class PersonServices {
 
 
     public PersonDTO update(PersonDTO person) {
+        if (person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Updating one Person!");
         Person entity = repository.findById(person.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this Id."));
