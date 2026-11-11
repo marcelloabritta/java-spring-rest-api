@@ -3,13 +3,13 @@ package com.marcelloabritta.restapi.data.dto.v1;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class BookDTO extends RepresentationModel<BookDTO> {
     private Long id;
     private String author;
-    private Date launchDate;
+    private LocalDate launchDate;
     private BigDecimal price;
     private String title;
 
@@ -29,11 +29,11 @@ public class BookDTO extends RepresentationModel<BookDTO> {
         this.author = author;
     }
 
-    public Date getLaunchDate() {
+    public LocalDate getLaunchDate() {
         return launchDate;
     }
 
-    public void setLaunchDate(Date launchDate) {
+    public void setLaunchDate(LocalDate launchDate) {
         this.launchDate = launchDate;
     }
 
