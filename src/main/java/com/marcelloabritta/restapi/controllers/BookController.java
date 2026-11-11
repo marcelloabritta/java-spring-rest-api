@@ -21,16 +21,19 @@ public class BookController {
     private final BookServices service;
 
     public BookController(BookServices service) {
+
         this.service = service;
     }
 
     @GetMapping
     public List<BookDTO> findAll() {
+
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public BookDTO findById(@PathVariable("id") long id) {
+    public BookDTO findById(@PathVariable("id") Long id) {
+
         return service.findById(id);
     }
 
@@ -46,7 +49,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
