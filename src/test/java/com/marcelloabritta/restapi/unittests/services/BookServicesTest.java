@@ -1,10 +1,11 @@
-package com.marcelloabritta.restapi.services;
+package com.marcelloabritta.restapi.unittests.services;
 
 import com.marcelloabritta.restapi.data.dto.v1.BookDTO;
 import com.marcelloabritta.restapi.exception.RequiredObjectIsNullException;
 import com.marcelloabritta.restapi.exception.ResourceNotFoundException;
 import com.marcelloabritta.restapi.model.Book;
 import com.marcelloabritta.restapi.repository.BookRepository;
+import com.marcelloabritta.restapi.services.BookServices;
 import com.marcelloabritta.restapi.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
