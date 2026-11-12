@@ -1,1 +1,22 @@
-  spring.application.name=restapi
+server:
+  port: 8888
+spring:
+  application:
+    name: restapi
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false
+logging:
+  level:
+    com.marcelloabritta: DEBUG
+
+spring-doc:
+  paths-to-match: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true
+
+
