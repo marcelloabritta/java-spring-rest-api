@@ -7,15 +7,19 @@ import com.marcelloabritta.restapi.model.Book;
 import com.marcelloabritta.restapi.repository.BookRepository;
 import com.marcelloabritta.restapi.services.BookServices;
 import com.marcelloabritta.restapi.unittests.mapper.mocks.MockBook;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,13 +118,13 @@ public class BookServicesTest {
     @Test
     void findAll() {
         List<Book> books = input.mockEntityList();
-        when(repository.findAll()).thenReturn(books);
+        var pageable = PageRequest.of(1, 12);
+        when(repository.findAll(pageable)).thenReturn(new PageImpl<>(books));
 
-        var result = service.findAll();
+        var result = service.findAll(pageable).getContent();
 
         assertNotNull(result);
         assertEquals(books.size(), result.size());
-
         var bookOne = result.get(1);
         assertHasAllLinks(bookOne, 1L);
 
@@ -139,7 +143,7 @@ public class BookServicesTest {
         assertEquals(4L, bookFour.getId());
         assertEquals(LocalDate.of(2025, 11, 10), bookFour.getLaunchDate());
 
-        verify(repository, times(1)).findAll();
+        verify(repository, times(1)).findAll(pageable);
         verifyNoMoreInteractions(repository);
     }
 
@@ -219,7 +223,7 @@ public class BookServicesTest {
 
     private void assertHasAllLinks(BookDTO dto, Long id) {
         assertHasLink(dto, "self", "/api/v1/books/" + id, "GET");
-        assertHasLink(dto, "findAll", "/api/v1/books", "GET");
+        assertHasLink(dto, "findAll", "/api/v1/books?page=0&size=12&direction=asc", "GET");
         assertHasLink(dto, "create", "/api/v1/books", "POST");
         assertHasLink(dto, "update", "/api/v1/books/" + id, "PUT");
         assertHasLink(dto, "delete", "/api/v1/books/" + id, "DELETE");
