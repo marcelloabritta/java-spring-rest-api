@@ -6,6 +6,8 @@ import com.marcelloabritta.restapi.exception.RequiredObjectIsNullException;
 import com.marcelloabritta.restapi.exception.ResourceNotFoundException;
 import com.marcelloabritta.restapi.model.Book;
 import com.marcelloabritta.restapi.repository.BookRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,10 +33,13 @@ public class BookServices {
         return dto;
     }
 
-    public List<BookDTO> findAll() {
-        var books = (parseListObjects(repository.findAll(), BookDTO.class));
-        books.forEach(this::addHateoasLinks);
-        return books;
+    public Page<BookDTO> findAll(Pageable pageable) {
+        var books = repository.findAll(pageable);
+        return books.map(book -> {
+            var dto = parseObject(book, BookDTO.class);
+            addHateoasLinks(dto);
+            return dto;
+        });
     }
 
     public BookDTO create(BookDTO book) {
@@ -73,7 +78,7 @@ public class BookServices {
     private void addHateoasLinks(BookDTO dto) {
         dto.add(linkTo(methodOn(BookController.class).findById(dto.getId())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(BookController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
-        dto.add(linkTo(methodOn(BookController.class).findAll()).withRel("findAll").withType("GET"));
+        dto.add(linkTo(methodOn(BookController.class).findAll(0, 12, "asc")).withRel("findAll").withType("GET"));
         dto.add(linkTo(methodOn(BookController.class).create(dto)).withRel("create").withType("POST"));
         dto.add(linkTo(methodOn(BookController.class).update(dto.getId(), dto)).withRel("update").withType("PUT"));
     }
