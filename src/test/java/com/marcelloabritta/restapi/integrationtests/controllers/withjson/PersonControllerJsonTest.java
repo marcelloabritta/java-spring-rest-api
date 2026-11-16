@@ -1,11 +1,11 @@
 package com.marcelloabritta.restapi.integrationtests.controllers.withjson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marcelloabritta.restapi.config.TestConfigs;
 import com.marcelloabritta.restapi.integrationtests.dto.PersonDTO;
+import com.marcelloabritta.restapi.integrationtests.dto.wrapper.json.WrapperPersonDTO;
 import com.marcelloabritta.restapi.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -25,7 +25,6 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -183,6 +182,7 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
 
         var content = given(specification)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
+                .queryParams("page", 3, "size", 12, "direction", "asc")
                 .when()
                 .get()
                 .then()
@@ -191,30 +191,28 @@ class PersonControllerJsonTest extends AbstractIntegrationTest {
                 .body()
                 .asString();
 
-        List<PersonDTO> people = objectMapper.readValue(content, new TypeReference<List<PersonDTO>>() {
-        });
+        WrapperPersonDTO wrapper = objectMapper.readValue(content, WrapperPersonDTO.class);
+        List<PersonDTO> people = wrapper.getEmbedded().getPeople();
 
         PersonDTO personOne = people.getFirst();
-        person = personOne;
 
         assertTrue(personOne.getId() > 0);
 
-        assertEquals("Ayrton", personOne.getFirstName());
-        assertEquals("Senna", personOne.getLastName());
-        assertEquals("São Paulo - Brasil", personOne.getAddress());
+        assertEquals("Allin", personOne.getFirstName());
+        assertEquals("Emmot", personOne.getLastName());
+        assertEquals("7913 Lindbergh Way", personOne.getAddress());
         assertEquals("Male", personOne.getGender());
-        assertTrue(personOne.getEnabled());
+        assertFalse(personOne.getEnabled());
 
         PersonDTO personFive = people.get(4);
-        person = personFive;
 
         assertTrue(personFive.getId() > 0);
 
-        assertEquals("Muhamamd", personFive.getFirstName());
-        assertEquals("Ali", personFive.getLastName());
-        assertEquals("Kentucky - USA", personFive.getAddress());
+        assertEquals("Alonso", personFive.getFirstName());
+        assertEquals("Luchelli", personFive.getLastName());
+        assertEquals("9 Doe Crossing Avenue", personFive.getAddress());
         assertEquals("Male", personFive.getGender());
-        assertTrue(personFive.getEnabled());
+        assertFalse(personFive.getEnabled());
     }
 
 
