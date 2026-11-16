@@ -2,6 +2,8 @@ server:
   port: 8888
 cors:
   originPatterns: http://localhost:8080,http://localhost:3000
+file:
+  upload-dir: /Dev/Java/UploadDir
 spring:
   application:
     name: restapi
@@ -12,6 +14,12 @@ spring:
       ddl-auto: none
     show-sql: false
     open-in-view: false
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
 logging:
   level:
     com.marcelloabritta: DEBUG

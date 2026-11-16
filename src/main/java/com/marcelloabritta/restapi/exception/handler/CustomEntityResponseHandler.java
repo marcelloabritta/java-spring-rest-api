@@ -1,6 +1,8 @@
 package com.marcelloabritta.restapi.exception.handler;
 
 import com.marcelloabritta.restapi.exception.ExceptionResponse;
+import com.marcelloabritta.restapi.exception.FileNotFoundException;
+import com.marcelloabritta.restapi.exception.FileStorageException;
 import com.marcelloabritta.restapi.exception.RequiredObjectIsNullException;
 import com.marcelloabritta.restapi.exception.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +47,24 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
                 ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> handleFileNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FileStorageException.class)
+    public final ResponseEntity<ExceptionResponse> handleFileStorageException(Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
