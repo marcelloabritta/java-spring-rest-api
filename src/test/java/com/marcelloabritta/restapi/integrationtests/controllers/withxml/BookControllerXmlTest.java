@@ -154,7 +154,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
     void findAllTest() throws JsonProcessingException {
         var content = given(specification)
                 .accept(MediaType.APPLICATION_XML_VALUE)
-                .queryParams("page", 2, "size", 4, "direction", "asc")
+                .queryParams("page", 0, "size", 12, "direction", "asc")
                 .when()
                 .get()
                 .then()
@@ -170,19 +170,19 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 
         assertTrue(bookOne.getId() > 0);
 
-        assertEquals("Brian Goetz e Tim Peierls", bookOne.getAuthor());
-        assertEquals(LocalDate.of(2017, 11, 7), bookOne.getLaunchDate());
-        assertEquals("Java Concurrency in Practice", bookOne.getTitle());
-        assertEquals(new BigDecimal("80.00"), bookOne.getPrice());
+        assertEquals("Craig Larman", bookOne.getAuthor());
+        assertEquals(LocalDate.of(1998, 12, 5), bookOne.getLaunchDate());
+        assertEquals("Agile and Iterative Development: A Manager’s Guide", bookOne.getTitle());
+        assertEquals(new BigDecimal("43.82"), bookOne.getPrice());
 
-        BookDTO bookThree = books.get(2);
+        BookDTO bookFive = books.get(4);
 
-        assertTrue(bookThree.getId() > 0);
+        assertTrue(bookFive.getId() > 0);
 
-        assertEquals("Susan Cain", bookThree.getAuthor());
-        assertEquals(LocalDate.of(2017, 11, 7), bookThree.getLaunchDate());
-        assertEquals("O poder dos quietos", bookThree.getTitle());
-        assertEquals(new BigDecimal("123.00"), bookThree.getPrice());
+        assertEquals("Craig Larman", bookFive.getAuthor());
+        assertEquals(LocalDate.of(1994, 12, 12), bookFive.getLaunchDate());
+        assertEquals("Agile and Iterative Development: A Manager’s Guide", bookFive.getTitle());
+        assertEquals(new BigDecimal("128.07"), bookFive.getPrice());
     }
 
 

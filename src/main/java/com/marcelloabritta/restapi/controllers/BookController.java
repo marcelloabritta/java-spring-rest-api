@@ -37,7 +37,7 @@ public class BookController {
                                  @RequestParam(value = "size", defaultValue = "12") @Min(1) @Max(50) Integer size,
                                  @RequestParam(value = "direction", defaultValue = "asc") String direction) {
         var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
-        var pageable = PageRequest.of(page, size, Sort.by(sortDirection, "title"));
+        var pageable = PageRequest.of(page, size, Sort.by(sortDirection, "title", "id"));
         return service.findAll(pageable);
     }
 
