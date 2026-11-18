@@ -1,5 +1,6 @@
 package com.marcelloabritta.restapi.exception.handler;
 
+import com.marcelloabritta.restapi.exception.BadRequestException;
 import com.marcelloabritta.restapi.exception.ExceptionResponse;
 import com.marcelloabritta.restapi.exception.FileNotFoundException;
 import com.marcelloabritta.restapi.exception.FileStorageException;
@@ -41,6 +42,15 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
     }
 
     @ExceptionHandler(RequiredObjectIsNullException.class)
+    public final ResponseEntity<ExceptionResponse> handleRequiredObjectExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
     public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
