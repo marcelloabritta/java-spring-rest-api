@@ -15,7 +15,6 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,8 +22,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +48,9 @@ class PersonServicesTest {
 
     @Mock
     PersonRepository repository;
+
+    @Mock
+    PagedResourcesAssembler<PersonDTO> assembler;
 
     @BeforeEach
     void setUp() {
@@ -233,12 +243,22 @@ class PersonServicesTest {
     }
 
     @Test
-    @Disabled("REASON: still Under Development")
     void findAll() {
         List<Person> list = input.mockEntityList();
-        when(repository.findAll()).thenReturn(list);
+        Pageable pageable = PageRequest.of(0, 14, Sort.by("firstName"));
+        Page<Person> page = new PageImpl<>(list, pageable, list.size());
 
-        List<PersonDTO> people = new ArrayList<>(); //service.findAll(pageable);
+        when(repository.findAll(pageable)).thenReturn(page);
+
+        when(assembler.toModel(any(Page.class), any(Link.class))).thenAnswer(invocation -> {
+            Page<PersonDTO> pageArg = invocation.getArgument(0);
+            var content = pageArg.getContent().stream().map(EntityModel::of).toList();
+            return PagedModel.of(content,
+                    new PagedModel.PageMetadata(pageArg.getSize(), pageArg.getNumber(), pageArg.getTotalElements()));
+        });
+
+        var result = service.findAll(pageable);
+        List<PersonDTO> people = result.getContent().stream().map(EntityModel::getContent).toList();
 
         assertNotNull(people);
         assertEquals(14, people.size());
