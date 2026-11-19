@@ -23,6 +23,7 @@
         <commons-csv.version>1.14.1</commons-csv.version>
         <jasperreports.version>7.1.1</jasperreports.version>
         <zxing.version>3.5.4</zxing.version>
+        <java-jwt.version>4.6.2</java-jwt.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,7 +33,23 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${java-jwt.version}</version>
         </dependency>
 
         <dependency>
