@@ -62,11 +62,11 @@ name used in that URL; Flyway creates the tables and inserts the sample data on 
 
 | Method | Path                  | Description                        | Success |
 |--------|-----------------------|------------------------------------|---------|
-| GET    | `/api/person/v1`      | List all people                    | 200     |
-| GET    | `/api/person/v1/{id}` | Find a person by id                | 200     |
-| POST   | `/api/person/v1`      | Create a person                    | 200     |
-| PUT    | `/api/person/v1`      | Update a person (`id` in the body) | 200     |
-| DELETE | `/api/person/v1/{id}` | Delete a person                    | 204     |
+| GET    | `/api/v1/person`      | List all people                    | 200     |
+| GET    | `/api/v1/person/{id}` | Find a person by id                | 200     |
+| POST   | `/api/v1/person`      | Create a person                    | 200     |
+| PUT    | `/api/v1/person`      | Update a person (`id` in the body) | 200     |
+| DELETE | `/api/v1/person/{id}` | Delete a person                    | 204     |
 
 ### Books
 
