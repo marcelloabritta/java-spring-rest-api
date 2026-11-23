@@ -5,9 +5,8 @@ import com.marcelloabritta.restapi.exception.RequiredObjectIsNullException;
 import com.marcelloabritta.restapi.exception.ResourceNotFoundException;
 import com.marcelloabritta.restapi.model.Book;
 import com.marcelloabritta.restapi.repository.BookRepository;
-import com.marcelloabritta.restapi.services.BookServices;
+import com.marcelloabritta.restapi.services.BookService;
 import com.marcelloabritta.restapi.unittests.mapper.mocks.MockBook;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -19,7 +18,6 @@ import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,12 +30,12 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class BookServicesTest {
+public class BookServiceTest {
 
     private MockBook input = new MockBook();
 
     @InjectMocks
-    private BookServices service;
+    private BookService service;
 
     @Mock
     private BookRepository repository;

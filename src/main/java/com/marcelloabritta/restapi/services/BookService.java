@@ -10,18 +10,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-import static com.marcelloabritta.restapi.mapper.ObjectMapper.parseListObjects;
 import static com.marcelloabritta.restapi.mapper.ObjectMapper.parseObject;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
-public class BookServices {
+public class BookService {
     private final BookRepository repository;
 
-    public BookServices(BookRepository repository) {
+    public BookService(BookRepository repository) {
         this.repository = repository;
     }
 

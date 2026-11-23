@@ -4,7 +4,7 @@ import com.marcelloabritta.restapi.data.dto.v1.PersonDTO;
 import com.marcelloabritta.restapi.exception.RequiredObjectIsNullException;
 import com.marcelloabritta.restapi.model.Person;
 import com.marcelloabritta.restapi.repository.PersonRepository;
-import com.marcelloabritta.restapi.services.PersonServices;
+import com.marcelloabritta.restapi.services.PersonService;
 import com.marcelloabritta.restapi.unittests.mapper.mocks.MockPerson;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -39,12 +39,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
-class PersonServicesTest {
+class PersonServiceTest {
 
     MockPerson input;
 
     @InjectMocks
-    private PersonServices service;
+    private PersonService service;
 
     @Mock
     PersonRepository repository;
