@@ -3,12 +3,11 @@ package com.marcelloabritta.restapi.controllers;
 import com.marcelloabritta.restapi.controllers.docs.PersonControllerDocs;
 import com.marcelloabritta.restapi.data.dto.v1.PersonDTO;
 import com.marcelloabritta.restapi.file.exporter.MediaTypes;
-import com.marcelloabritta.restapi.services.PersonServices;
+import com.marcelloabritta.restapi.services.PersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -34,12 +33,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/person/v1")
+@RequestMapping("api/v1/person")
 @Tag(name = "People", description = "Endpoints for Managing people")
 public class PersonController implements PersonControllerDocs {
 
     @Autowired
-    private PersonServices service;
+    private PersonService service;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Override

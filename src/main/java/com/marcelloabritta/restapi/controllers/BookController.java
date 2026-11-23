@@ -1,7 +1,7 @@
 package com.marcelloabritta.restapi.controllers;
 
 import com.marcelloabritta.restapi.data.dto.v1.BookDTO;
-import com.marcelloabritta.restapi.services.BookServices;
+import com.marcelloabritta.restapi.services.BookService;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
@@ -20,14 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookController {
-    private final BookServices service;
+    private final BookService service;
 
-    public BookController(BookServices service) {
+    public BookController(BookService service) {
 
         this.service = service;
     }
