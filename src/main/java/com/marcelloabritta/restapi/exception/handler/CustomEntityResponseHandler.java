@@ -4,6 +4,7 @@ import com.marcelloabritta.restapi.exception.BadRequestException;
 import com.marcelloabritta.restapi.exception.ExceptionResponse;
 import com.marcelloabritta.restapi.exception.FileNotFoundException;
 import com.marcelloabritta.restapi.exception.FileStorageException;
+import com.marcelloabritta.restapi.exception.InvalidJwtAuthenticationException;
 import com.marcelloabritta.restapi.exception.RequiredObjectIsNullException;
 import com.marcelloabritta.restapi.exception.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.naming.AuthenticationException;
 import java.util.Date;
 
 @ControllerAdvice
@@ -75,6 +77,15 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
                 ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationException(Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
     @Override
