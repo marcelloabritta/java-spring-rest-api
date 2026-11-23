@@ -6,7 +6,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.lifecycle.Startable;
 import org.testcontainers.lifecycle.Startables;
 
 import java.util.Map;
@@ -25,7 +24,8 @@ public class AbstractIntegrationTest {
             return Map.of(
                     "spring.datasource.url", mysql.getJdbcUrl(),
                     "spring.datasource.username", mysql.getUsername(),
-                    "spring.datasource.password", mysql.getPassword()
+                    "spring.datasource.password", mysql.getPassword(),
+                    "security.jwt.token.secret-key", "test-only-jwt-secret-not-for-production-use-1234567890"
             );
         }
 
