@@ -4,6 +4,11 @@ cors:
   originPatterns: http://localhost:8080,http://localhost:3000
 file:
   upload-dir: /Dev/Java/UploadDir
+security:
+  jwt:
+    token:
+      secret-key: ${JWT_SECRET}
+      expire-length: 3600000
 email:
   subject: "Default Subject"
   message: "Default Message"
@@ -37,7 +42,9 @@ logging:
     com.marcelloabritta: DEBUG
 
 spring-doc:
-  paths-to-match: /api/**/v1/**
+  paths-to-match:
+    - /auth/**
+    - /api/**/v1/**
   swagger-ui:
     use-root-path: true
 
