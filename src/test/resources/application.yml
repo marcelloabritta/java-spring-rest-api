@@ -3,11 +3,11 @@ server:
 cors:
   originPatterns: http://localhost:8080,http://localhost:3000
 file:
-  upload-dir: /Dev/Java/UploadDir
+  upload-dir: ${java.io.tmpdir}/UploadDir
 security:
   jwt:
     token:
-      secret-key: ${JWT_SECRET}
+      secret-key: ${JWT_SECRET:test-secret-key-not-for-production}
       expire-length: 3600000
 email:
   subject: "Default Subject"
@@ -25,8 +25,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${EMAIL_USERNAME}
-    password: ${EMAIL_PASSWORD}
+    username: ${EMAIL_USERNAME:test@example.com}
+    password: ${EMAIL_PASSWORD:test-password}
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enabled: true
